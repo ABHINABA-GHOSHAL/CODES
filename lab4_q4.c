@@ -56,6 +56,10 @@ int count(Node *pnode)
 Node sort(Node* pnode,int k)
 {
 
+    if((*pnode)==NULL || (*pnode)->next==NULL)
+    {
+        return *pnode;
+    }
     Node curr=*pnode;
     Node temp=NULL;
     for(int i=0;i<k-1;i++)

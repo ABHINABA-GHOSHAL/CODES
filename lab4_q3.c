@@ -42,38 +42,39 @@ void display(Node pnode)
     }
     printf("\n");
 }
-Node rotate(Node *pnode, int k,int n )
+Node kreverse(Node *pnode,int k)
 {
     if((*pnode)==NULL || (*pnode)->next==NULL)
     {
         return *pnode;
+
     }
-    int i=0;
-    Node curr=*pnode;
-    int rev=k%n;
-    if(rev==0 || k==0)
+    Node temp=*pnode;
+    Node PREVIOUS=NULL;
+    Node curr=temp;
+    Node Next=NULL;
+    int Count=0;
+    while(curr!=NULL && Count<k)
     {
-        return *pnode;
+        Next=curr->next;
+        curr->next=PREVIOUS;
+        curr->prev=Next;
+        PREVIOUS=curr;
+        curr=Next;
+        Count++;
+
+
     }
-    while(i<n-rev-1)
+    if(Next!=NULL)
     {
-        curr=curr->next;
-        i++;
+        temp->next=kreverse(&Next,k);
     }
-    Node temp=curr->next;
-    curr->next=NULL;
-    temp->prev=NULL;
-    Node head1=temp;
-    while(temp->next!=NULL)
-    {
-        temp=temp->next;
-    }
-    temp->next=*pnode;
-    return head1;
+    return PREVIOUS;
+
 }
 int main()
 {
-   Node head=NULL;
+    Node head=NULL;
     int n;
     printf("enter number of nodes:\n");
     scanf("%d",&n);
@@ -85,12 +86,12 @@ int main()
         add_element(&head,data);
 
     }
-    printf("original data\n");
     display(head);
     int k;
-    printf("enter value of k:");
+    printf("enter group of k:\n");
     scanf("%d",&k);
-    Node head2=rotate(&head,k,n);
-    printf("Rotated Linked List\n"); 
-    display(head2);
+    Node head1=kreverse(&head,k);
+    printf("reversed LL is:\n")
+    display(head1);
+
 }
